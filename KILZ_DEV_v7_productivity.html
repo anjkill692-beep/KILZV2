@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172a46">
+<title>kilzmodeserius — Ruang Belajar</title>
+<style>
+:root{--ink:#172a46;--muted:#65738a;--paper:#f5f7fb;--card:#fff;--line:#e1e7f0;--blue:#3568d4;--blue2:#eaf0ff;--green:#18794e;--red:#b93838;--shadow:0 12px 35px rgba(28,49,83,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1120px;margin:auto;padding:22px 18px 48px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.4px;font-size:19px}.brandmark{width:40px;height:40px;border-radius:13px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800}.brand small{display:block;color:var(--muted);font-size:12px;font-weight:500;letter-spacing:0}.pill{padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:#fff;font-size:12px}
+.hero{background:var(--ink);color:white;border-radius:25px;padding:30px;display:grid;grid-template-columns:1.5fr .8fr;gap:24px;align-items:center;box-shadow:var(--shadow);overflow:hidden;position:relative}.eyebrow{text-transform:uppercase;letter-spacing:1.7px;font-size:11px;font-weight:800;color:#b9cdfd}.hero h1{font-size:clamp(27px,4vw,42px);line-height:1.13;letter-spacing:-1.3px;margin:10px 0 12px}.hero p{color:#d5deee;max-width:570px;margin:0 0 21px}.primary{border:0;background:#dce7ff;color:#142746;padding:12px 17px;border-radius:12px;font-weight:800}.hero-art{min-height:155px;display:grid;place-items:center;position:relative}.paper{width:150px;height:170px;background:#fff;border-radius:12px;transform:rotate(5deg);padding:22px 17px;color:var(--ink);box-shadow:0 20px 45px #0c172d88}.paper .line{height:7px;border-radius:9px;background:#dfe6f2;margin:10px 0}.paper .line:nth-child(2){width:70%;background:#8daef9}.paper .line:nth-child(4){width:80%}.paper .line:nth-child(5){width:55%}.stamp{position:absolute;right:12%;bottom:0;background:#f2c979;color:#402d05;padding:10px 13px;border-radius:12px;font-weight:850;transform:rotate(-7deg)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:18px 0 25px}.stat,.panel,.subject-card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:17px}.stat-label{color:var(--muted);font-size:12px}.stat-num{font-size:25px;font-weight:850;letter-spacing:-.7px;margin-top:4px}.layout{display:grid;grid-template-columns:1.45fr .8fr;gap:18px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.section-head h2{font-size:18px;margin:0;letter-spacing:-.4px}.subtle{font-size:12px;color:var(--muted)}.subjects{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.subject-card{padding:16px;text-align:left;transition:.15s;display:block;width:100%;color:var(--ink)}.subject-card:hover{border-color:#a9bff5;transform:translateY(-2px)}.subject-icon{height:38px;width:38px;border-radius:12px;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-size:18px;margin-bottom:11px;font-weight:800}.subject-card strong{display:block;font-size:14px}.subject-card span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.progress{height:5px;background:#edf0f6;border-radius:8px;margin-top:12px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:var(--blue);border-radius:8px}.side-list{display:grid;gap:10px}.side-item{padding:12px;border:1px solid var(--line);border-radius:13px;display:flex;gap:11px;align-items:flex-start}.side-item b{display:block;font-size:13px}.side-item span{font-size:12px;color:var(--muted)}.dot{width:30px;height:30px;border-radius:10px;background:#f1f4fa;display:grid;place-items:center;flex-shrink:0}.footer{color:var(--muted);font-size:12px;text-align:center;margin-top:25px}
+.view{display:none}.view.active{display:block}.back{border:0;background:transparent;color:var(--muted);padding:8px 0;margin-bottom:12px;font-weight:700}.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.quiz-head h1{font-size:25px;margin:0;letter-spacing:-.8px}.timer{background:#fff;border:1px solid var(--line);border-radius:11px;padding:8px 12px;font-weight:800;font-variant-numeric:tabular-nums}.quiz-grid{display:grid;grid-template-columns:1fr 260px;gap:16px}.question-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:23px}.qmeta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px;margin-bottom:14px}.qtext{font-size:20px;font-weight:750;line-height:1.45;letter-spacing:-.3px;margin:0 0 20px}.options{display:grid;gap:10px}.option{border:1px solid var(--line);background:#fff;border-radius:12px;padding:13px 14px;text-align:left;display:flex;gap:12px;align-items:flex-start;color:var(--ink);transition:.12s}.option:hover{border-color:#a9bff5;background:#fbfcff}.option .letter{border:1px solid #d8dfeb;border-radius:8px;min-width:29px;height:29px;display:grid;place-items:center;font-weight:800;font-size:12px;color:#53627a}.option.selected{border-color:var(--blue);background:var(--blue2)}.option.selected .letter{background:var(--blue);color:#fff;border-color:var(--blue)}.option.correct{border-color:#76c29a;background:#edfbf2}.option.wrong{border-color:#e8a0a0;background:#fff2f2}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.secondary{border:1px solid var(--line);background:#fff;padding:11px 15px;border-radius:11px;color:var(--ink);font-weight:750}.secondary:disabled{opacity:.4;cursor:not-allowed}.nav-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px;height:max-content}.nav-card h3{margin:0 0 5px;font-size:14px}.number-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:14px 0}.num{border:1px solid var(--line);background:#fff;border-radius:8px;aspect-ratio:1;color:var(--muted);font-weight:750;font-size:12px}.num.done{background:#eaf0ff;color:var(--blue);border-color:#c7d5ff}.num.current{outline:2px solid var(--blue);outline-offset:1px}.num.marked{background:#172a46;color:#fff;border-color:#172a46}.nav-legend{font-size:11px;color:var(--muted);display:grid;gap:6px}.legend-dot{display:inline-block;width:8px;height:8px;border-radius:3px;margin-right:5px;background:#eaf0ff}.legend-dot.dark{background:#172a46}.result{text-align:center;padding:30px 20px}.score-ring{width:140px;height:140px;border-radius:50%;border:10px solid #dfe8ff;display:grid;place-items:center;margin:12px auto 18px;background:#fff}.score-ring strong{font-size:35px;letter-spacing:-1px}.result h1{margin:0;font-size:30px}.result p{color:var(--muted);max-width:500px;margin:8px auto 20px}.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.review-list{display:grid;gap:12px;margin-top:18px}.review{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.review h3{font-size:15px;margin:0 0 9px}.review p{margin:5px 0;font-size:13px}.good{color:var(--green)}.bad{color:var(--red)}.filterrow{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.filterrow select,.filterrow input{border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 12px;color:var(--ink)}.hidden{display:none!important}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding:24px}.hero-art{display:none}.layout,.quiz-grid{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat-num{font-size:21px}.side-panel{order:2}.quiz-grid .nav-card{order:1}.number-grid{grid-template-columns:repeat(10,1fr)}.question-card{padding:18px}.qtext{font-size:18px}.topbar{margin-bottom:16px}.pill{display:none}}
+@media(max-width:430px){.subjects{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.stat-label{font-size:10px}.stat-num{font-size:19px}.quiz-head h1{font-size:21px}.number-grid{grid-template-columns:repeat(5,1fr)}}
+
+/* Visual refresh: simple, readable, and less template-like */
+:root{
+  --ink:#242a31;--muted:#737b83;--paper:#f7f6f2;--card:#fffefa;
+  --line:#e6e2d9;--blue:#3f5d50;--blue2:#edf2ed;--green:#26734d;
+  --red:#b63e37;--shadow:0 3px 12px rgba(38,40,35,.045)
+}
+body{background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.shell{max-width:1080px;padding:22px 20px 42px}
+.topbar{margin-bottom:22px}
+.brand{font-size:18px;letter-spacing:-.55px}
+.brandmark{width:38px;height:38px;border-radius:10px;background:#d8e1d7;color:#2d483b}
+.brand small{font-size:11px;color:#85877f}
+.pill{border-radius:8px;background:transparent;border-color:#dcd8cf;color:#77776f}
+.hero{background:#e8eee6;color:#293b31;border-radius:16px;padding:30px 32px;box-shadow:none;grid-template-columns:1.5fr .6fr}
+.eyebrow{color:#577060;letter-spacing:1.3px}
+.hero h1{font-size:clamp(29px,4vw,39px);letter-spacing:-1.4px;font-weight:800}
+.hero p{color:#59685e;max-width:560px}
+.primary{background:#304b3d;color:#fff;border-radius:9px;padding:12px 16px}
+.primary:hover{background:#243c30}
+.hero-art{min-height:145px}
+.paper{box-shadow:0 8px 20px rgba(40,50,42,.10);border:1px solid #e4e6df;border-radius:8px}
+.stamp{background:#e6c47b;border-radius:7px;font-size:12px}
+.stats{gap:11px;margin:16px 0 25px}
+.stat,.panel,.subject-card{border-radius:12px;border-color:var(--line);box-shadow:none}
+.stat{padding:15px 16px}
+.stat-label{font-size:11px;letter-spacing:.15px}
+.stat-num{font-size:24px}
+.layout{gap:16px}
+.section-head h2{font-size:17px;letter-spacing:-.3px}
+.subjects{gap:10px}
+.subject-card{padding:15px;background:var(--card);transition:border-color .15s,background .15s}
+.subject-card:hover{border-color:#a9b9a9;transform:none;background:#fff}
+.subject-icon{width:34px;height:34px;border-radius:9px;background:#edf2ed;color:#3f5d50;font-size:15px}
+.subject-card strong{font-size:13px;letter-spacing:-.1px}
+.subject-card span{line-height:1.45}
+.progress{background:#efeee8}
+.progress i{background:#718a77}
+.side-item{border-radius:9px}
+.dot{border-radius:8px;background:#f0efe9}
+.footer{font-size:11px}
+.question-card,.nav-card,.review{border-radius:12px;box-shadow:none;background:var(--card)}
+.timer{border-radius:8px}
+.option{border-radius:9px;background:var(--card)}
+.option:hover{border-color:#a9b9a9;background:#f9faf7}
+.option.selected{border-color:#6e8a76;background:#edf2ed}
+.option.selected .letter{background:#3f5d50;border-color:#3f5d50}
+.num{border-radius:7px}
+.num.done{background:#edf2ed;color:#3f5d50;border-color:#d3dfd3}
+.num.current{outline-color:#3f5d50}
+.num.marked{background:#3f5d50;border-color:#3f5d50}
+.score-ring{border-color:#dce6dc}
+.secondary{border-radius:9px;background:var(--card)}
+.filterrow select,.filterrow input{border-radius:8px}
+.back{color:#5f6e63}
+@media(max-width:760px){
+ .shell{padding:16px 14px 32px}
+ .hero{padding:23px 21px;grid-template-columns:1fr;border-radius:13px}
+ .stats{margin-top:13px}
+}
+@media(max-width:430px){
+ .subjects{grid-template-columns:1fr}
+ .stat{padding:11px 9px}
+}
+
+
+/* Functional appearance controls + subtle interaction effects */
+.top-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.tool-btn,.accent-control{min-height:38px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);padding:8px 11px;display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;transition:transform .2s,border-color .2s,background .25s,color .25s}
+.tool-btn:hover{transform:translateY(-2px);border-color:var(--blue)}
+.tool-btn span:first-child{font-size:16px}
+.accent-control{gap:8px;font-weight:600}
+.accent-control span{color:var(--muted)}
+.accent-control select{max-width:115px;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+:root{--glow:rgba(63,93,80,.12);--focus:rgba(63,93,80,.35)}
+body{transition:background .28s,color .28s}
+.hero,.stat,.panel,.subject-card,.question-card,.nav-card,.review,.option,.secondary,.timer,.pill,.tool-btn,.accent-control{transition:background-color .25s,color .25s,border-color .25s,box-shadow .25s}
+.hero{position:relative;isolation:isolate}
+.hero:after{content:"";position:absolute;z-index:-1;width:240px;height:240px;border-radius:50%;right:-70px;top:-105px;background:radial-gradient(circle,var(--glow),transparent 68%);pointer-events:none;transition:background .3s}
+.primary,.subject-card,.option,.secondary,.tool-btn{position:relative;overflow:hidden}
+.primary:after,.subject-card:after,.option:after,.secondary:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.22) 48%,transparent 70%);transform:translateX(-130%);transition:transform .55s;pointer-events:none}
+.primary:hover:after,.subject-card:hover:after,.option:hover:after,.secondary:hover:after{transform:translateX(130%)}
+.subject-card:hover,.option:hover,.secondary:hover{box-shadow:0 7px 20px var(--glow);transform:translateY(-2px)}
+.brandmark{transition:transform .3s,background .25s,color .25s}
+.brand:hover .brandmark{transform:rotate(-7deg) scale(1.05)}
+button:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+body[data-accent="mono"]{--blue:#242a31;--blue2:#ededed;--glow:rgba(0,0,0,.12);--focus:rgba(0,0,0,.35)}
+body[data-accent="blue"]{--blue:#3d67cb;--blue2:#edf2ff;--glow:rgba(61,103,203,.14);--focus:rgba(61,103,203,.4)}
+body[data-accent="purple"]{--blue:#7654b8;--blue2:#f1ecfa;--glow:rgba(118,84,184,.15);--focus:rgba(118,84,184,.4)}
+body[data-accent="green"]{--blue:#3f7055;--blue2:#edf4ee;--glow:rgba(63,112,85,.15);--focus:rgba(63,112,85,.4)}
+body[data-accent="pink"]{--blue:#b44e7d;--blue2:#f9edf3;--glow:rgba(180,78,125,.15);--focus:rgba(180,78,125,.4)}
+body.dark{--ink:#f0f1f3;--muted:#a3a8b0;--paper:#101114;--card:#191b20;--line:#30333a;--blue2:#282c32;--green:#70d5a0;--red:#ff8580;--shadow:0 10px 30px rgba(0,0,0,.22);--glow:rgba(255,255,255,.07);--focus:rgba(255,255,255,.4)}
+body.dark .brandmark{background:#f0f1f3;color:#151619}
+body.dark .hero{background:#22252b;color:#f4f4f5}
+body.dark .hero p{color:#c0c4cb}
+body.dark .eyebrow{color:#b9c3cf}
+body.dark .paper{background:#f7f7f4;color:#25272b;border-color:#e3e3df}
+body.dark .paper .line{background:#d8dce2}
+body.dark .paper .line:nth-child(2){background:#8d9aaf}
+body.dark .stamp{background:#d8c18a;color:#302814}
+body.dark .option,.dark .secondary,.dark .timer,.dark .pill,.dark .tool-btn,.dark .accent-control{background:var(--card);color:var(--ink)}
+body.dark .option .letter{border-color:#41454d;color:#c4c8d0}
+body.dark .option.selected{background:color-mix(in srgb,var(--blue) 20%,var(--card))}
+body.dark .option.selected .letter{background:var(--blue);color:white;border-color:var(--blue)}
+body.dark .option.correct{background:#183126;border-color:#357c56}
+body.dark .option.wrong{background:#351f20;border-color:#874646}
+body.dark .num{background:#202329;color:#b5bac3;border-color:#3a3e47}
+body.dark .num.done{background:#2a313a;color:#dce5f6;border-color:#424c5b}
+body.dark .num.marked{background:#f0f1f3;color:#18191d;border-color:#f0f1f3}
+body.dark .dot{background:#262930}
+body.dark .progress{background:#2c2f35}
+body.dark .primary{background:var(--blue);color:#fff}
+body.dark .subject-icon{background:var(--blue2);color:var(--blue)}
+body.dark .score-ring{background:var(--card);border-color:#353a43}
+body.dark .good{color:#70d5a0}
+body.dark .bad{color:#ff8580}
+@media(max-width:760px){.topbar{align-items:flex-start}.top-actions{gap:6px}.top-actions .pill{display:none}.tool-btn,.accent-control{min-height:35px;padding:7px 9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+
+/* Extra polish: ambient light, page transitions, subtle motion */
+html{scroll-behavior:smooth}
+body{position:relative;isolation:isolate;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;z-index:-1;pointer-events:none;width:340px;height:340px;border-radius:50%;filter:blur(75px);opacity:.13;animation:ambientFloat 16s ease-in-out infinite alternate}
+body:before{top:8%;left:-190px;background:var(--blue)}
+body:after{right:-190px;bottom:3%;background:#b9a0ed;animation-delay:-8s}
+@keyframes ambientFloat{0%{transform:translate3d(0,0,0) scale(.92)}50%{transform:translate3d(32px,22px,0) scale(1.08)}100%{transform:translate3d(-10px,45px,0) scale(1)}}
+#pageProgress{position:fixed;top:0;left:0;width:0;height:3px;z-index:9999;background:linear-gradient(90deg,var(--blue),#b9a0ed,#e4bd75);box-shadow:0 0 12px var(--glow);transition:width .08s linear}
+.view.active{animation:pageEnter .38s cubic-bezier(.2,.7,.25,1) both}
+@keyframes pageEnter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.hero{overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.18) 45%,transparent 65%);transform:translateX(-120%);animation:heroShine 8s ease-in-out infinite}
+@keyframes heroShine{0%,65%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.subject-card{animation:cardRise .5s both}
+.subject-card:nth-child(2){animation-delay:.05s}.subject-card:nth-child(3){animation-delay:.1s}.subject-card:nth-child(4){animation-delay:.15s}
+@keyframes cardRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.primary,.tool-btn,.secondary,.option,.subject-card{transition:transform .18s ease,box-shadow .22s ease,background-color .25s ease,border-color .2s ease,color .25s ease}
+.primary:active,.tool-btn:active,.secondary:active,.option:active,.subject-card:active{transform:scale(.985)}
+.primary{box-shadow:0 5px 0 rgba(18,37,28,.12),0 8px 24px var(--glow)}
+.primary:hover{box-shadow:0 7px 22px var(--glow);transform:translateY(-2px)}
+.option.selected{box-shadow:inset 3px 0 0 var(--blue),0 4px 14px var(--glow)}
+.timer{box-shadow:0 3px 12px var(--glow)}
+.brandmark{position:relative;overflow:hidden}
+.brandmark:after{content:"";position:absolute;inset:-60%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%);transform:translateX(-120%) rotate(15deg);transition:transform .6s}
+.brand:hover .brandmark:after{transform:translateX(120%) rotate(15deg)}
+body.dark:before,body.dark:after{opacity:.1}
+@media(max-width:760px){body:before,body:after{width:230px;height:230px;filter:blur(60px);opacity:.1}.hero:before{animation-duration:11s}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body:before,body:after,.hero:before,.view.active,.subject-card{animation:none!important}*{transition:none!important}}
+
+
+/* KILZ DEV productivity modules */
+.kilz-tools-nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+.kilz-tools-nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:9px 12px;font-size:12px;font-weight:750}
+.kilz-tools-nav button:hover,.kilz-tools-nav button.active{background:var(--ink);color:var(--paper)}
+.tool-view-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin:0 0 16px}
+.tool-view-head h1{font-size:27px;letter-spacing:-.8px;margin:3px 0 5px}
+.tool-view-head p{color:var(--muted);font-size:13px;margin:0}
+.tool-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.8fr);gap:15px}
+.tool-form{display:grid;gap:10px}
+.tool-form label{font-size:12px;font-weight:750;color:var(--muted);display:grid;gap:6px}
+.tool-form input,.tool-form select,.tool-form textarea,.tool-input{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 12px;background:var(--card);color:var(--ink);outline-color:var(--blue)}
+.tool-form textarea{min-height:110px;resize:vertical}
+.tool-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tool-primary{border:0;border-radius:9px;background:var(--ink);color:var(--paper);font-weight:800;padding:11px 14px}
+.tool-secondary{border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font-weight:750;padding:10px 13px}
+.tool-list{display:grid;gap:9px}
+.tool-entry{border:1px solid var(--line);background:var(--card);border-radius:11px;padding:13px}
+.tool-entry-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.tool-entry h3{font-size:14px;margin:0 0 4px}
+.tool-entry p{font-size:12px;color:var(--muted);margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.tool-entry small{color:var(--muted);font-size:11px}
+.tool-entry-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tool-entry-actions button{font-size:11px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--ink);padding:6px 8px}
+.tool-badge{display:inline-block;background:var(--blue2);color:var(--blue);padding:4px 7px;border-radius:6px;font-size:10px;font-weight:800}
+.tool-empty{border:1px dashed var(--line);border-radius:10px;padding:20px;text-align:center;color:var(--muted);font-size:13px}
+.week-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.week-day{border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);padding:9px 3px;text-align:center;min-width:0}
+.week-day strong{display:block;font-size:15px}.week-day span{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}
+.week-day.active{background:var(--ink);color:var(--paper)}.week-day.active span{color:inherit;opacity:.75}
+.week-dot{display:block;width:5px;height:5px;border-radius:50%;background:#d6a64d;margin:5px auto 0}
+.focus-clock{font-size:clamp(46px,10vw,76px);font-weight:850;letter-spacing:-3px;font-variant-numeric:tabular-nums;text-align:center;margin:12px 0}
+.focus-face{padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.focus-track{height:5px;background:var(--line);border-radius:9px;overflow:hidden}.focus-track span{display:block;height:100%;width:0;background:var(--blue);transition:width .3s}
+.focus-modes{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.focus-modes button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 11px;font-size:12px}
+.focus-modes button.active{background:var(--blue2);border-color:var(--blue)}
+.money-total{font-size:30px;font-weight:850;letter-spacing:-1px;margin:4px 0}
+.note-content{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
+.checklist-line{display:flex;gap:8px;align-items:flex-start;font-size:12px;margin-top:7px}
+.checklist-line input{margin-top:2px}
+@media(max-width:760px){.tool-grid{grid-template-columns:1fr}.kilz-tools-nav button{flex:1 1 auto}.tool-view-head h1{font-size:24px}.week-strip{gap:3px}.week-day{padding:8px 1px}.week-day span{font-size:9px}}
+@media print{body *{visibility:hidden!important}#notesPrintArea,#notesPrintArea *{visibility:visible!important}#notesPrintArea{position:absolute;left:0;top:0;width:100%;background:white;color:black;padding:20px}.no-print{display:none!important}}
+
+</style>
+
+
+
+
+
+<style id="kilz-landing-cleanup">
+#kilzLanding{position:fixed;inset:0;z-index:9999;min-height:100svh;background:#101114;color:#f4f4f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+#kilzLanding .kl-nav{display:flex;align-items:center;justify-content:space-between;padding:22px clamp(20px,5vw,64px);position:relative;z-index:2}
+#kilzLanding .kl-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:#f59e0b;color:#111;font-weight:900}
+#kilzLanding .kl-links{display:flex;align-items:center;gap:24px}
+#kilzLanding .kl-links a{color:#b9bbc2;text-decoration:none;font-size:13px}
+#kilzLanding .kl-cta,#kilzLanding #kilzEnter{border:1px solid #f59e0b;border-radius:12px;background:#f59e0b;color:#171717;padding:13px 17px;font-weight:800;cursor:pointer}
+#kilzLanding .kl-stage{position:relative;min-height:calc(100svh - 86px);padding:clamp(35px,8vh,90px) clamp(20px,8vw,110px) 70px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(190px,.7fr);align-content:center;align-items:center;gap:32px}
+#kilzLanding .kl-orange{position:absolute;width:380px;height:380px;border-radius:50%;right:8%;top:18%;background:radial-gradient(circle,#f59e0b22,transparent 70%);pointer-events:none}
+#kilzLanding .kl-title{position:relative;z-index:1;grid-column:1;font-size:clamp(60px,10vw,130px);font-weight:950;letter-spacing:-.09em;line-height:.88;display:flex;flex-direction:column;color:#f5f5f5}
+#kilzLanding .kl-title span:last-child{color:#f59e0b}
+#kilzLanding .kl-copy{position:relative;z-index:1;grid-column:1;grid-row:2;max-width:470px;margin-top:25px;color:#c4c5ca;font-size:15px;line-height:1.7}
+#kilzLanding .kl-copy strong{display:block;color:#f5f5f5;font-size:clamp(21px,3vw,30px);line-height:1.25;letter-spacing:-.04em}
+#kilzLanding .kl-copy p{margin:14px 0 22px}
+#kilzLanding .kl-side{position:relative;z-index:1;grid-column:2;grid-row:1 / span 2;justify-self:end;align-self:end;color:#c4c5ca;border-left:1px solid #3a3b40;padding-left:22px;max-width:220px}
+#kilzLanding .kl-side small{font-size:10px;letter-spacing:2px;color:#f59e0b}
+#kilzLanding .kl-side h2{font-size:34px;line-height:1.05;color:#f5f5f5;letter-spacing:-1px;margin:15px 0}
+#kilzLanding .kl-social{display:flex;gap:12px;color:#f59e0b}
+#kilzLanding .kl-glow{display:none}
+#kilzLanding .kl-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px;max-width:470px}
+#kilzLanding .kl-feature{border:1px solid #303238;background:linear-gradient(145deg,#191a1e,#111215);border-radius:14px;padding:13px 14px;min-height:82px}
+#kilzLanding .kl-feature .kl-feature-icon{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:8px;background:#f59e0b18;color:#fbbf24;font-size:14px;margin-bottom:8px}
+#kilzLanding .kl-feature b{display:block;color:#f2f2f3;font-size:12px;letter-spacing:.1px}
+#kilzLanding .kl-feature span{display:block;color:#8c9098;font-size:11px;margin-top:3px;line-height:1.4}
+#kilzLanding .kl-google-note{font-size:11px;color:#858992;margin-top:12px;display:flex;align-items:center;gap:7px}
+#kilzLanding .kl-google-note i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#e9aa35;box-shadow:0 0 0 4px #f59e0b16}
+#kilzLanding .kl-copy #kilzEnter{box-shadow:0 8px 25px #f59e0b20}
+#kilzLanding .kl-cta{border-radius:10px}
+#kilzLanding .kl-footer{position:relative;bottom:auto;right:auto;margin:0 clamp(20px,5vw,64px) 24px;text-align:right;font-size:10px;letter-spacing:2px;color:#777980;line-height:1.9}
+@media(max-width:700px){#kilzLanding .kl-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:20px}#kilzLanding .kl-feature{padding:11px;min-height:78px}#kilzLanding .kl-feature b{font-size:11px}#kilzLanding .kl-feature span{font-size:10px}#kilzLanding .kl-nav{padding:16px 20px}#kilzLanding .kl-links a{display:none}#kilzLanding .kl-stage{min-height:calc(100svh - 74px);padding:55px 22px 65px;grid-template-columns:1fr;gap:26px;align-content:center}#kilzLanding .kl-title{font-size:clamp(64px,17vw,100px);grid-column:1;grid-row:1;display:flex;flex-direction:row;gap:12px;letter-spacing:-.08em}#kilzLanding .kl-copy{grid-column:1;grid-row:2;margin-top:0;max-width:440px;font-size:14px}#kilzLanding .kl-copy strong{font-size:25px}#kilzLanding .kl-side{grid-column:1;grid-row:3;justify-self:start;align-self:auto;margin-top:10px;padding-left:14px;max-width:none}#kilzLanding .kl-side h2{font-size:25px;margin:8px 0}#kilzLanding .kl-footer{left:22px;right:auto;bottom:18px;font-size:9px}#kilzLanding .kl-orange{width:250px;height:250px;right:-100px;top:10%}}
+</style>
+
+</head>
+<body>
+
+
+<div id="kilzLanding" aria-label="Halaman pembuka KILZ DEV">
+  <header class="kl-nav">
+    <div class="kl-mark">KZ</div>
+    <nav class="kl-links" aria-label="Navigasi">
+      <a href="#kilzAbout">About</a><a href="#kilzWork">Study</a><a href="#kilzServices">Features</a>
+      <button class="kl-cta" id="kilzEnterTop" type="button" onclick="enterStudy()">Let's Go ↗</button>
+    </nav>
+  </header>
+  <main class="kl-stage">
+    <div class="kl-orange"></div>
+    <div class="kl-title" aria-label="KILZ DEV"><span>KILZ</span> <span>DEV</span></div>
+    <div class="kl-copy" id="kilzAbout">
+      <strong>Learn smart.<br>Level up seriously.</strong>
+      <p>Ruang belajar digital untuk latihan soal, melihat progres, dan membangun kebiasaan belajar yang konsisten.</p>
+      <button id="kilzEnter" type="button" onclick="enterStudy()">Masuk ke Ruang Belajar ↗</button>
+      <div class="kl-feature-grid" aria-label="Fitur KILZ DEV">
+        <div class="kl-feature"><span class="kl-feature-icon">✦</span><b>Latihan interaktif</b><span>Kerjakan soal dan cek pembahasan.</span></div>
+        <div class="kl-feature"><span class="kl-feature-icon">↗</span><b>Progres belajar</b><span>Pantau nilai terbaik dan latihan.</span></div>
+        <div class="kl-feature"><span class="kl-feature-icon">◷</span><b>Mode fokus</b><span>Belajar bertahap tanpa ribet.</span></div>
+        <div class="kl-feature"><span class="kl-feature-icon">↻</span><b>Update website</b><span>Fitur belajar dikembangkan bertahap.</span></div>
+      </div>
+    </div>
+    <aside class="kl-side" id="kilzServices">
+      <small>READY TO LEARN</small>
+      <h2>Study<br>Mode</h2>
+      <div class="kl-social"><span>✦</span><span>✧</span><span>↗</span><span>✳</span></div>
+    </aside>
+    <div class="kl-glow"></div>
+    <div class="kl-footer" id="kilzWork">OWNER: KILZ DEV<br>UPDATE: 26 OKTOBER 2026 · VERSION 1.0</div>
+  </main>
+</div>
+
+
+<div id="pageProgress" aria-hidden="true"></div>
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><div class="brandmark">K</div><div>KILZ DEV<small>Belajar dikit, paham banyak.</small></div></div>
+  <div class="top-actions">
+    <div class="pill">Latihan Asesmen · Ganjil 2026/2027</div>
+    <button class="tool-btn" id="themeToggle" type="button" onclick="toggleTheme()" aria-label="Ganti mode terang atau gelap" title="Mode terang / gelap"><span id="themeIcon">☾</span><span id="themeLabel">Gelap</span></button>
+    <label class="accent-control" title="Pilih warna aksen"><span>Warna</span><select id="accentPicker" aria-label="Pilih warna tema" onchange="setAccent(this.value)"><option value="mono">Hitam-putih</option><option value="blue">Biru</option><option value="purple">Ungu</option><option value="green">Hijau</option><option value="pink">Pink</option></select></label>
+  </div>
+</header>
+
+<div class="kilz-tools-nav" aria-label="Fitur tambahan">
+  <button type="button" onclick="openTool('planner')" data-tool="planner">▦ Agenda</button>
+  <button type="button" onclick="openTool('focusMode')" data-tool="focusMode">◷ Focus Mode</button>
+  <button type="button" onclick="openTool('digitalNotes')" data-tool="digitalNotes">▤ Catatan</button>
+  <button type="button" onclick="openTool('pocketMoney')" data-tool="pocketMoney">＋ Uang saku</button>
+</div>
+
+<section id="home" class="view active">
+  <div class="hero">
+    <div><div class="eyebrow">TEMPAT LATIHAN UJIAN · OWNER KILZ DEV</div><h1>Belajar pelan-pelan.<br>Yang penting paham.</h1><p>Latihan Bahasa Indonesia dan PAI kelas IX berdasarkan kisi-kisi yang kamu kirim. Pilih materi, kerjakan soal, lalu cek pembahasannya.</p><button class="primary" onclick="startQuiz('all')">Mulai latihan lengkap <span aria-hidden="true">→</span></button></div>
+    <div class="hero-art" aria-hidden="true"><div class="paper"><div style="font-weight:850;font-size:13px;margin-bottom:18px">Catatan belajar</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div><div class="stamp">Gas belajar!</div></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Total latihan</div><div class="stat-num" id="statAttempts">0</div></div>
+    <div class="stat"><div class="stat-label">Nilai terbaik</div><div class="stat-num" id="statBest">—</div></div>
+    <div class="stat"><div class="stat-label">Topik kisi-kisi</div><div class="stat-num">25</div></div>
+  </div>
+  <div class="layout">
+    <main class="panel">
+      <div class="section-head"><h2>Pilih mode latihan</h2><span class="subtle">Bisa diulang kapan saja</span></div>
+      <div class="subjects">
+        <button class="subject-card" onclick="startQuiz('all')"><div class="subject-icon">25</div><strong>Simulasi ulangan</strong><span>25 soal campuran · 35 menit</span><div class="progress"><i style="width:100%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('teks')"><div class="subject-icon">Aa</div><strong>Teks & paragraf</strong><span>Deskripsi, ide pokok, sudut pandang</span><div class="progress"><i style="width:35%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('media')"><div class="subject-icon">✦</div><strong>Media & penyajian</strong><span>Podcast, infografik, poster</span><div class="progress"><i style="width:35%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('bahasa')"><div class="subject-icon">文</div><strong>Kebahasaan</strong><span>Kata baku, imbuhan, kalimat</span><div class="progress"><i style="width:35%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('prosedur')"><div class="subject-icon">1–2</div><strong>Teks prosedur</strong><span>Urutan, tujuan, dan langkah</span><div class="progress"><i style="width:35%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('cerita')"><div class="subject-icon">✎</div><strong>Cerita & esai</strong><span>Citraan, prediksi, wawancara, esai</span><div class="progress"><i style="width:35%"></i></div></button>
+      </div>
+      <div class="section-head" style="margin-top:25px"><h2>PAI dan Budi Pekerti</h2><span class="subtle">Kelas IX · 25 soal kisi-kisi</span></div>
+      <div class="subjects">
+        <button class="subject-card" onclick="startQuiz('pai_all')"><div class="subject-icon">25</div><strong>Simulasi PAI</strong><span>25 soal campuran · 35 menit</span><div class="progress"><i style="width:100%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('pai_ilmu')"><div class="subject-icon">✦</div><strong>Menuntut ilmu</strong><span>Semangat, adab, hadis, ilmuwan muslim</span><div class="progress"><i style="width:35%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('pai_waqaf')"><div class="subject-icon">۞</div><strong>Tanda waqaf</strong><span>Waqaf jaiz, lazim, dan muraqabah</span><div class="progress"><i style="width:35%"></i></div></button>
+        <button class="subject-card" onclick="startQuiz('pai_akhir')"><div class="subject-icon">☾</div><strong>Iman kepada hari akhir</strong><span>Kiamat, Yaumul Mizan, Mahsyar, dan Ba’ats</span><div class="progress"><i style="width:35%"></i></div></button>
+      </div>
+    </main>
+    <aside class="panel side-panel">
+      <div class="section-head"><h2>Tips sebelum mulai</h2></div>
+      <div class="side-list">
+        <div class="side-item"><div class="dot">01</div><div><b>Baca pertanyaannya dulu</b><span>Perhatikan kata kunci seperti “kecuali”, “tujuan”, atau “paling tepat”.</span></div></div>
+        <div class="side-item"><div class="dot">02</div><div><b>Gunakan timer kalau siap</b><span>Simulasi lengkap punya batas waktu, tapi latihan topik lebih santai.</span></div></div>
+        <div class="side-item"><div class="dot">03</div><div><b>Baca pembahasan</b><span>Nilai penting, tapi tahu alasan jawaban lebih penting.</span></div></div>
+      </div>
+    </aside>
+  </div>
+  <div class="footer">Dibuat untuk latihan mandiri • Progres tersimpan di perangkat ini</div>
+</section>
+
+<section id="quiz" class="view">
+  <button class="back" onclick="goHome()">← Kembali ke beranda</button>
+  <div class="quiz-head"><div><div class="eyebrow" style="color:var(--blue)">MODE LATIHAN</div><h1 id="quizTitle">Simulasi ulangan</h1></div><div class="timer" id="timer">35:00</div></div>
+  <div class="quiz-grid">
+    <main class="question-card">
+      <div class="qmeta"><span id="qCount">Soal 1 dari 25</span><span id="qTopic">Teks deskripsi</span></div>
+      <h2 class="qtext" id="questionText"></h2>
+      <div class="options" id="options"></div>
+      <div class="quiz-actions"><button class="secondary" id="prevBtn" onclick="move(-1)">← Sebelumnya</button><button class="primary" id="nextBtn" onclick="move(1)">Berikutnya →</button></div>
+    </main>
+    <aside class="nav-card">
+      <h3>Navigasi soal</h3><div class="subtle">Pilih nomor untuk berpindah</div>
+      <div class="number-grid" id="numberGrid"></div>
+      <div class="nav-legend"><span><i class="legend-dot"></i>Sudah dijawab</span><span><i class="legend-dot dark"></i>Nomor aktif</span></div>
+      <button class="secondary" style="width:100%;margin-top:17px" onclick="finishQuiz(false)">Selesaikan latihan</button>
+      <div class="subtle" style="margin-top:9px" id="answeredCount">0 soal terjawab</div>
+    </aside>
+  </div>
+</section>
+
+<section id="results" class="view">
+  <button class="back" onclick="goHome()">← Kembali ke beranda</button>
+  <div class="panel result">
+    <div class="eyebrow" style="color:var(--blue)">LATIHAN SELESAI</div>
+    <div class="score-ring"><strong id="score">0</strong></div>
+    <h1 id="resultTitle">Bagus, sudah selesai!</h1>
+    <p id="resultDesc"></p>
+    <div class="result-actions"><button class="primary" onclick="retryQuiz()">Coba lagi</button><button class="secondary" onclick="goHome()">Kembali ke beranda</button></div>
+  </div>
+  <div class="section-head" style="margin-top:25px"><h2>Ulas jawaban</h2><span class="subtle">Baca pembahasan tiap soal</span></div>
+  <div class="filterrow"><select id="reviewFilter" onchange="renderReview()"><option value="all">Semua jawaban</option><option value="wrong">Jawaban salah/kosong</option><option value="correct">Jawaban benar</option></select></div>
+  <div class="review-list" id="reviewList"></div>
+</section>
+</div>
+<script>
+const questions = [
+{topic:"Teks deskripsi",group:"teks",q:"Saat akan menulis teks deskripsi tentang perpustakaan sekolah, langkah awal yang paling tepat adalah …",o:["Menyusun simpulan terlebih dahulu","Menentukan objek dan mengamati ciri-cirinya","Membuat daftar pustaka","Menulis dialog antartokoh"],a:1,e:"Teks deskripsi dimulai dengan menentukan objek, lalu mengamati detail atau ciri yang dapat dijelaskan."},
+{topic:"Ide pokok",group:"teks",q:"Bacalah paragraf berikut. “Taman sekolah tampak asri. Berbagai bunga tumbuh di tepi jalan setapak. Pohon rindang membuat udara terasa sejuk. Siswa juga merawat tanaman setiap Jumat.” Ide pokok paragraf tersebut adalah …",o:["Siswa merawat tanaman setiap Jumat","Udara di taman terasa sejuk","Taman sekolah tampak asri","Bunga tumbuh di tepi jalan"],a:2,e:"Kalimat pertama menyatakan gagasan umum yang dijelaskan oleh kalimat-kalimat berikutnya."},
+{topic:"Jenis paragraf",group:"teks",q:"“Membaca setiap hari memberi banyak manfaat. Kosakata bertambah, pengetahuan meluas, dan kemampuan memahami bacaan meningkat.” Jenis paragraf berdasarkan letak gagasan utamanya adalah …",o:["Deduktif","Induktif","Campuran dengan simpulan di tengah","Naratif tanpa gagasan utama"],a:0,e:"Gagasan utama berada di awal paragraf, lalu diikuti rincian manfaat. Ini merupakan pola deduktif."},
+{topic:"Makna kata",group:"bahasa",q:"Dalam kalimat “Suasana kelas menjadi kondusif setelah semua siswa tenang”, makna kata kondusif adalah …",o:["Ramai dan tidak teratur","Mendukung keadaan yang baik","Sulit untuk dipahami","Berlangsung sangat cepat"],a:1,e:"Kondusif berarti mendukung atau memungkinkan suatu kegiatan berlangsung dengan baik."},
+{topic:"Sudut pandang",group:"cerita",q:"Kalimat “Aku berlari menuju halte karena takut tertinggal bus” menggunakan sudut pandang …",o:["Orang pertama","Orang kedua","Orang ketiga serba tahu","Orang ketiga pengamat"],a:0,e:"Kata ganti “aku” menunjukkan pencerita memakai sudut pandang orang pertama."},
+{topic:"Kohesi paragraf",group:"bahasa",q:"“Dina membawa bekal dari rumah. Bekal itu ia bagikan kepada teman-temannya.” Kata yang membantu menghubungkan kedua kalimat adalah …",o:["Dari","Kepada","Itu","Rumah"],a:2,e:"Kata “itu” merujuk kembali pada “bekal”, sehingga hubungan antarkalimat menjadi padu."},
+{topic:"Podcast",group:"media",q:"Agar podcast edukasi terasa interaktif, penyaji sebaiknya …",o:["Membaca naskah dengan nada datar","Mengajukan pertanyaan dan menanggapi pendengar atau narasumber","Menghindari contoh konkret","Mempercepat bicara tanpa jeda"],a:1,e:"Pertanyaan dan tanggapan membuat penyampaian lebih hidup serta mengajak pendengar terlibat."},
+{topic:"Penyajian podcast",group:"media",q:"Cara menyampaikan informasi dalam podcast agar tidak kaku adalah …",o:["Menggunakan bahasa lisan yang alami dan tetap sopan","Membaca semua kalimat seperti pengumuman resmi","Menggunakan istilah rumit sebanyak mungkin","Berbicara tanpa memikirkan urutan materi"],a:0,e:"Bahasa lisan yang alami, jelas, dan tetap sopan membuat podcast terasa akrab tanpa kehilangan ketepatan informasi."},
+{topic:"Bahasa kias dan citraan",group:"teks",q:"Penggunaan bahasa kias dan citraan dalam teks deskripsi terutama bertujuan untuk …",o:["Membuat pembaca menghafal istilah","Membuat gambaran objek lebih hidup dan mudah dibayangkan","Menghilangkan detail objek","Mengubah teks menjadi petunjuk langkah"],a:1,e:"Bahasa kias dan citraan membantu pembaca membayangkan objek seolah melihat, mendengar, atau merasakannya."},
+{topic:"Citraan",group:"teks",q:"“Aroma roti hangat memenuhi ruangan, sementara bunyi lonceng kecil terdengar dari dapur.” Citraan yang tampak pada kalimat tersebut adalah …",o:["Penglihatan dan gerak","Penciuman dan pendengaran","Pengecapan dan perabaan","Pendengaran dan pengecapan"],a:1,e:"Kata “aroma” mengacu pada penciuman, sedangkan “bunyi” mengacu pada pendengaran."},
+{topic:"Prediksi peristiwa",group:"cerita",q:"Langit mendadak gelap, angin bertiup kencang, dan orang-orang mulai menutup jendela. Peristiwa yang paling logis terjadi selanjutnya adalah …",o:["Cuaca menjadi sangat cerah","Kemungkinan turun hujan","Semua tanaman langsung berbunga","Matahari terbit dari barat"],a:1,e:"Langit gelap dan angin kencang merupakan tanda yang masuk akal menjelang hujan."},
+{topic:"Gagasan pendukung",group:"teks",q:"Gagasan utama: “Kucing Persia memiliki ciri fisik yang khas.” Kalimat yang BUKAN gagasan pendukung tentang ciri fisiknya adalah …",o:["Bulunya panjang dan lebat","Hidungnya cenderung pesek","Matanya tampak bulat","Kucing Persia sering tidur pada siang hari"],a:3,e:"Kebiasaan tidur bukan ciri fisik, sedangkan pilihan lain menjelaskan penampilan tubuh."},
+{topic:"Infografik prosedur",group:"prosedur",q:"Fungsi utama infografik yang memuat teks prosedur adalah …",o:["Menceritakan pengalaman pribadi secara rinci","Menyajikan langkah-langkah dengan ringkas dan mudah diikuti","Menyampaikan pendapat tanpa alasan","Menggambarkan tokoh dalam cerita fantasi"],a:1,e:"Infografik menggabungkan teks dan unsur visual untuk memudahkan pembaca memahami urutan langkah."},
+{topic:"Penanda opini",group:"bahasa",q:"Kalimat yang mengandung penanda opini adalah …",o:["Air membeku pada suhu 0°C dalam kondisi standar","Menurut saya, perpustakaan itu tempat paling nyaman","Indonesia memproklamasikan kemerdekaan pada 1945","Satu minggu terdiri atas tujuh hari"],a:1,e:"Ungkapan “menurut saya” menunjukkan penilaian atau pendapat pribadi."},
+{topic:"Teks prosedur",group:"prosedur",q:"Dalam prosedur membuat teh, langkah “masukkan teh ke dalam air panas” dilewatkan. Dampak yang paling mungkin adalah …",o:["Minuman tetap memiliki rasa teh yang sama","Teh tidak terseduh sebagaimana mestinya","Air otomatis berubah menjadi kopi","Gelas menjadi lebih besar"],a:1,e:"Jika teh tidak dimasukkan ke air panas, proses penyeduhan tidak berlangsung dengan benar."},
+{topic:"Kata baku",group:"bahasa",q:"Pasangan kata baku yang tepat adalah …",o:["Aktif – apotik","Aktivitas – risiko","Ijin – praktek","Nasehat – analisa"],a:1,e:"“Aktivitas” dan “risiko” merupakan bentuk baku. Bentuk baku lainnya adalah apotek, izin, praktik, nasihat, dan analisis."},
+{topic:"Desain poster",group:"media",q:"Poster ajakan menjaga kebersihan berisi paragraf panjang dan banyak gambar kecil sehingga sulit dibaca. Perbaikan terbaik adalah …",o:["Menambah lebih banyak paragraf","Memperbesar semua gambar sampai memenuhi poster","Memilih slogan singkat, gambar relevan, dan huruf yang mudah dibaca","Menggunakan warna tulisan yang sama dengan latar"],a:2,e:"Poster perlu pesan ringkas, visual yang relevan, dan kontras yang cukup agar cepat dipahami."},
+{topic:"Wawancara tidak terstruktur",group:"cerita",q:"Wawancara tidak terstruktur dilakukan dengan cara …",o:["Mengajukan pertanyaan yang kaku dan selalu sama urutannya","Mengikuti percakapan secara fleksibel berdasarkan jawaban narasumber","Hanya memberikan kuesioner tertulis","Tidak mendengarkan jawaban narasumber"],a:1,e:"Wawancara tidak terstruktur lebih luwes; pewawancara dapat mengembangkan pertanyaan sesuai arah percakapan."},
+{topic:"Teks prosedur",group:"prosedur",q:"Perhatikan langkah berikut: (1) Tuang air ke gelas. (2) Siapkan gelas dan teh celup. (3) Celupkan teh ke air panas. (4) Tambahkan gula sesuai selera. Urutan yang paling logis adalah …",o:["1–2–4–3","2–1–3–4","3–4–2–1","4–3–1–2"],a:1,e:"Peralatan dan bahan disiapkan lebih dahulu, lalu air dituangkan, teh diseduh, dan gula ditambahkan."},
+{topic:"Imbuhan",group:"bahasa",q:"Pada kata “bersepeda”, imbuhan ber- menunjukkan makna …",o:["Melakukan kegiatan menggunakan sepeda","Menjadikan sepeda lebih besar","Orang yang menjual sepeda","Tempat menyimpan sepeda"],a:0,e:"Kata “bersepeda” bermakna melakukan kegiatan naik atau menggunakan sepeda."},
+{topic:"Kalimat perintah",group:"bahasa",q:"Kalimat pernyataan “Kamu menutup pintu sebelum keluar” diubah menjadi kalimat perintah yang tepat menjadi …",o:["Apakah kamu menutup pintu sebelum keluar?","Pintu itu sudah tertutup sebelum keluar.","Tutuplah pintu sebelum keluar!","Kamu mungkin menutup pintu sebelum keluar."],a:2,e:"Kalimat perintah meminta seseorang melakukan tindakan. Kata “tutuplah” menyatakan perintah dengan jelas dan sopan."},
+{topic:"Urutan teks prosedur",group:"prosedur",q:"Kata yang lazim digunakan untuk menandai urutan langkah dalam teks prosedur adalah …",o:["Mungkin, sepertinya, barangkali","Pertama, kemudian, selanjutnya","Akan tetapi, meskipun, padahal","Saya rasa, menurut saya, tampaknya"],a:1,e:"“Pertama”, “kemudian”, dan “selanjutnya” menandai urutan tahapan atau kegiatan."},
+{topic:"Kalimat persuasif",group:"media",q:"Kalimat yang BUKAN contoh kalimat persuasif untuk poster hemat air adalah …",o:["Ayo, gunakan air secukupnya!","Mari tutup keran setelah dipakai!","Hemat air hari ini untuk masa depan!","Air mengalir melalui pipa di rumah."],a:3,e:"Kalimat terakhir hanya menyampaikan informasi, bukan ajakan atau bujukan."},
+{topic:"Pembuka esai",group:"cerita",q:"Topik esai: pentingnya membatasi sampah plastik. Kalimat pembuka yang paling tepat adalah …",o:["Sampah plastik menjadi persoalan lingkungan yang perlu mendapat perhatian bersama.","Demikian esai yang dapat saya sampaikan.","Pertama, siapkan gunting dan lem.","Saya akan menceritakan liburan saya minggu lalu."],a:0,e:"Kalimat pembuka yang baik memperkenalkan isu utama dan mengarahkan pembaca pada pembahasan esai."},
+{topic:"Video monolog",group:"cerita",q:"Seseorang merekam video monolog sendirian. Ia kesulitan menjaga kamera tetap stabil dan merasa gugup saat berbicara. Solusi yang paling tepat adalah …",o:["Mengabaikan suara dan gambar karena isi saja cukup","Menggunakan penyangga kamera, berlatih, dan melakukan beberapa kali pengambilan","Berbicara secepat mungkin agar segera selesai","Menghapus semua jeda dan ekspresi"],a:1,e:"Penyangga membantu masalah teknis, sedangkan latihan dan pengambilan ulang membantu mengurangi kegugupan serta memperbaiki penampilan."},
+{topic:"Teks deskripsi",group:"teks",q:"Paragraf yang tepat untuk teks deskripsi adalah …",o:["Pertama, tekan tombol daya selama tiga detik.","Pantai itu memiliki pasir keemasan, air biru jernih, dan deretan pohon kelapa.","Menurut hasil rapat, kegiatan dimulai pukul delapan.","Saya setuju dengan pendapat tersebut karena alasannya kuat."],a:1,e:"Kalimat tersebut menggambarkan ciri yang dapat diamati dari suatu tempat."}
+];
+const paiQuestions = [{"topic":"Semangat menuntut ilmu","group":"pai_ilmu","q":"Ciri orang berilmu yang baik adalah …","o":["Meremehkan orang lain","Mengamalkan ilmu dan rendah hati","Menyembunyikan ilmu bermanfaat","Belajar hanya agar dipuji"],"a":1,"e":"Orang berilmu menggunakan ilmunya untuk kebaikan dan tetap rendah hati."},{"topic":"Amal jariyah","group":"pai_ilmu","q":"Contoh amal jariyah berupa mengajarkan ilmu adalah …","o":["Mengajarkan bacaan Al-Qur’an yang terus diamalkan","Membeli barang untuk diri sendiri","Beristirahat setelah belajar","Menyimpan ilmu agar tak diketahui"],"a":0,"e":"Ilmu bermanfaat yang terus diamalkan orang lain dapat menjadi amal jariyah."},{"topic":"Perintah menuntut ilmu","group":"pai_ilmu","q":"Perilaku sesuai perintah Allah Swt. tentang menuntut ilmu adalah …","o":["Menolak nasihat guru","Belajar sungguh-sungguh dan mencari ilmu bermanfaat","Menyontek saat ujian","Berhenti belajar setelah mendapat nilai bagus"],"a":1,"e":"Kesungguhan belajar dan mencari ilmu bermanfaat sesuai perintah menuntut ilmu."},{"topic":"Tanda waqaf","group":"pai_waqaf","q":"Waqaf jaiz hasan menunjukkan bahwa pembaca …","o":["Wajib berhenti dan tak boleh lanjut","Boleh berhenti, dan berhenti lebih baik","Tidak boleh berhenti sama sekali","Harus mengulang surah"],"a":1,"e":"Dalam materi tajwid yang umum diajarkan, waqaf jaiz hasan membolehkan berhenti dan berhenti dinilai lebih baik."},{"topic":"Hadis menuntut ilmu","group":"pai_ilmu","q":"Pesan utama hadis tentang kewajiban menuntut ilmu adalah …","o":["Ilmu hanya untuk pemimpin","Menuntut ilmu merupakan kewajiban bagi muslim","Ilmu tak perlu diamalkan","Belajar hanya saat kecil"],"a":1,"e":"Hadis tentang menuntut ilmu menegaskan pentingnya mencari ilmu bagi seorang muslim."},{"topic":"Ilmuwan muslim","group":"pai_ilmu","q":"Ilmuwan muslim yang dikenal berkontribusi dalam matematika dan aljabar adalah …","o":["Al-Khawarizmi","Al-Zahrawi","Ibnu Battutah","Al-Idrisi"],"a":0,"e":"Al-Khawarizmi dikenal atas kontribusinya dalam matematika, termasuk aljabar."},{"topic":"Ilmuwan muslim","group":"pai_ilmu","q":"Al-Zahrawi dikenal mengembangkan bidang …","o":["Kedokteran dan bedah","Astronomi saja","Sastra saja","Pertanian saja"],"a":0,"e":"Al-Zahrawi merupakan tokoh penting dalam sejarah kedokteran dan ilmu bedah."},{"topic":"Adab menuntut ilmu","group":"pai_ilmu","q":"Sikap yang dapat menghambat seseorang memperoleh ilmu adalah …","o":["Mendengarkan guru","Bertanya dengan sopan","Sombong dan merasa tak perlu belajar lagi","Mencatat materi"],"a":2,"e":"Kesombongan membuat seseorang sulit menerima nasihat dan pengetahuan baru."},{"topic":"Tanda waqaf","group":"pai_waqaf","q":"Saat menemukan tanda waqaf jaiz (ج), pembaca pada umumnya …","o":["Boleh berhenti atau melanjutkan","Wajib mengulang ayat","Harus berhenti tanpa lanjut","Harus membaca keras"],"a":0,"e":"Tanda ج menunjukkan kebolehan berhenti atau meneruskan bacaan."},{"topic":"Tanda waqaf lazim","group":"pai_waqaf","q":"Tanda waqaf lazim menunjukkan pembaca sebaiknya …","o":["Berhenti pada tanda tersebut","Selalu menyambung","Mengganti ayat dengan terjemahan","Mengulang satu halaman"],"a":0,"e":"Waqaf lazim menandai tempat berhenti untuk menjaga makna."},{"topic":"Ketentuan waqaf","group":"pai_waqaf","q":"Mengapa tanda waqaf perlu diperhatikan saat membaca Al-Qur’an?","o":["Agar membaca secepat mungkin","Agar berhenti dan menyambung sesuai ketentuan serta menjaga makna","Agar jumlah ayat berubah","Agar tak perlu belajar tajwid"],"a":1,"e":"Tanda waqaf membantu menentukan tempat berhenti atau melanjutkan bacaan."},{"topic":"Waqaf muraqabah","group":"pai_waqaf","q":"Ketentuan umum waqaf muraqabah (ۛ ۛ) adalah …","o":["Berhenti pada kedua tanda","Berhenti pada salah satu tanda, bukan keduanya","Tidak boleh berhenti pada keduanya","Mengulang ayat tiga kali"],"a":1,"e":"Pembaca memilih berhenti pada salah satu dari dua tanda yang berpasangan."},{"topic":"Ilmu tajwid","group":"pai_ilmu","q":"Tujuan mempelajari ilmu tajwid adalah …","o":["Membaca Al-Qur’an sesuai kaidah pelafalan","Menghafal terjemahan saja","Mempercepat bacaan tanpa aturan","Mengubah bunyi huruf sesuka hati"],"a":0,"e":"Ilmu tajwid membimbing pelafalan huruf dan bacaan sesuai kaidah."},{"topic":"Iman kepada hari akhir","group":"pai_akhir","q":"Perbedaan kiamat sugra dan kubra yang tepat adalah …","o":["Sugra akhir alam, kubra kematian individu","Sugra berkaitan dengan kematian atau musibah tertentu, kubra kehancuran alam","Keduanya berarti kelahiran","Keduanya hanya perubahan cuaca"],"a":1,"e":"Kiamat sugra adalah kiamat kecil, sedangkan kiamat kubra adalah kehancuran alam semesta."},{"topic":"Yaumul Mizan","group":"pai_akhir","q":"Yaumul Mizan adalah peristiwa ketika …","o":["Manusia dibangkitkan","Amal manusia ditimbang","Manusia dikumpulkan","Manusia hidup di dunia"],"a":1,"e":"Yaumul Mizan berarti hari penimbangan amal manusia."},{"topic":"Iman kepada hari akhir","group":"pai_akhir","q":"Ciri orang yang beriman kepada hari akhir adalah …","o":["Merasa tak akan dimintai tanggung jawab","Berbuat baik dan menghindari keburukan","Mengabaikan hak orang lain","Berbuat baik hanya saat dilihat"],"a":1,"e":"Iman kepada hari akhir mendorong kesadaran bahwa perbuatan akan dipertanggungjawabkan."},{"topic":"Yaumul Mahsyar","group":"pai_akhir","q":"Yaumul Mahsyar adalah hari ketika manusia …","o":["Dikumpulkan setelah dibangkitkan","Mempelajari tajwid","Menjalani kehidupan dunia","Memilih amal"],"a":0,"e":"Yaumul Mahsyar adalah hari dikumpulkannya manusia setelah kebangkitan."},{"topic":"Tanda-tanda kiamat","group":"pai_akhir","q":"Makhluk yang disebut sebagai salah satu tanda besar kiamat adalah …","o":["Dabbatul ardh","Burung merpati","Kuda","Lebah"],"a":0,"e":"Dabbatul ardh disebut dalam ajaran Islam sebagai salah satu tanda besar menjelang kiamat."},{"topic":"Tanda-tanda kiamat","group":"pai_akhir","q":"Dalam konteks indikator kisi-kisi tentang perilaku menyerupai lawan jenis, contoh yang dimaksud adalah …","o":["Menghormati teman","Sengaja meniru penampilan atau perilaku lawan jenis untuk menyerupainya","Belajar bersama","Membantu orang tua"],"a":1,"e":"Soal mengikuti indikator kisi-kisi; pahami juga penjelasan guru dan konteks materi yang diajarkan."},{"topic":"Kiamat sugra","group":"pai_akhir","q":"Kematian seseorang termasuk contoh …","o":["Kiamat kubra","Kiamat sugra","Yaumul Mizan","Yaumul Mahsyar"],"a":1,"e":"Kematian individu termasuk kiamat sugra."},{"topic":"Yaumul Ba’ats","group":"pai_akhir","q":"Yaumul Ba’ats berarti hari …","o":["Penimbangan amal","Dibangkitkannya manusia dari kematian","Dikumpulkannya manusia","Berakhirnya pelajaran"],"a":1,"e":"Yaumul Ba’ats adalah hari kebangkitan manusia dari kematian."},{"topic":"Tanda-tanda kiamat","group":"pai_akhir","q":"Contoh perilaku yang dibahas sebagai tanda kerusakan akhlak menjelang kiamat adalah …","o":["Berlaku jujur","Menghormati orang tua","Meningkatnya kebohongan dan hilangnya amanah","Rajin belajar"],"a":2,"e":"Materi ini membahas kerusakan akhlak, seperti kebohongan dan hilangnya amanah."},{"topic":"Tanda kiamat dan bencana","group":"pai_akhir","q":"Pernyataan yang tepat tentang bencana alam dan tanda kiamat adalah …","o":["Setiap bencana memastikan kiamat besok","Bencana dapat menjadi musibah; waktu kiamat tak dapat dipastikan dari satu kejadian","Bencana tak berdampak pada manusia","Tanggal kiamat bisa diketahui tepat"],"a":1,"e":"Tidak tepat memastikan waktu kiamat dari suatu bencana; waktunya termasuk perkara gaib."},{"topic":"Hari akhir","group":"pai_akhir","q":"Istilah untuk berakhirnya seluruh kehidupan di alam semesta adalah …","o":["Kiamat kubra","Yaumul Mizan","Yaumul Ba’ats","Yaumul Mahsyar"],"a":0,"e":"Kiamat kubra adalah kehancuran besar yang mengakhiri alam semesta."},{"topic":"Tanda-tanda kiamat","group":"pai_akhir","q":"Jika masyarakat mulai mengabaikan pembelajaran agama, sikap yang tepat adalah …","o":["Ikut mengabaikannya","Mengejek orang yang belajar agama","Mengajak dengan santun untuk belajar dan memperbaiki diri","Menganggap belajar agama tak penting"],"a":2,"e":"Indikator ini menuntut analisis perilaku; solusi yang baik adalah mengajak santun dan memberi teladan."}];
+let activeQuestions=[],answers={},current=0,remaining=2100,timerId=null,finished=false,lastMode="all",startTime=0;
+const groups={teks:"Teks & paragraf",media:"Media & penyajian",bahasa:"Kebahasaan",prosedur:"Teks prosedur",cerita:"Cerita & esai",pai_ilmu:"PAI · Menuntut ilmu",pai_waqaf:"PAI · Tanda waqaf",pai_akhir:"PAI · Hari akhir"};
+function loadStats(){try{return JSON.parse(localStorage.getItem("kilzmodeseriusStats")||'{"attempts":0,"best":null}')}catch(e){return {attempts:0,best:null}}}
+function saveStats(s){localStorage.setItem("kilzmodeseriusStats",JSON.stringify(s))}
+function updateStats(){let s=loadStats();document.getElementById("statAttempts").textContent=s.attempts;document.getElementById("statBest").textContent=s.best===null?"—":s.best}
+function show(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+function goHome(){if(timerId){clearInterval(timerId);timerId=null}show("home");updateStats()}
+function startQuiz(mode){
+ lastMode=mode;
+ const isPai=mode==="pai_all"||mode.startsWith("pai_");
+ const sourceQuestions=isPai?paiQuestions:questions;
+ const selectedMode=mode==="pai_all"?"all":mode;
+ activeQuestions=sourceQuestions.filter(q=>selectedMode==="all"||q.group===selectedMode).map(q=>({...q,originalIndex:sourceQuestions.indexOf(q)}));
+ // Shuffle order for replay, while keeping options stable for fair review.
+ for(let i=activeQuestions.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[activeQuestions[i],activeQuestions[j]]=[activeQuestions[j],activeQuestions[i]]}
+ answers={};current=0;finished=false;remaining=(mode==="all"||mode==="pai_all")?2100:Math.max(480,activeQuestions.length*65);startTime=Date.now();
+ document.getElementById("quizTitle").textContent=(mode==="all"||mode==="pai_all")?(mode==="pai_all"?"Simulasi PAI":"Simulasi ulangan"):groups[mode];
+ document.getElementById("timer").classList.toggle("hidden",mode!=="all");
+ show("quiz");renderQuestion();startTimer();
+}
+function startTimer(){if(timerId)clearInterval(timerId);if(lastMode!=="all"&&lastMode!=="pai_all"){document.getElementById("timer").textContent="Santai";return}
+ updateTimer();timerId=setInterval(()=>{remaining--;updateTimer();if(remaining<=0)finishQuiz(true)},1000)}
+function updateTimer(){let m=Math.floor(remaining/60),s=remaining%60;document.getElementById("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");if(remaining<300)document.getElementById("timer").style.color="var(--red)";else document.getElementById("timer").style.color="var(--ink)"}
+function renderQuestion(){
+ let q=activeQuestions[current];document.getElementById("qCount").textContent=`Soal ${current+1} dari ${activeQuestions.length}`;document.getElementById("qTopic").textContent=q.topic;document.getElementById("questionText").textContent=q.q;
+ const box=document.getElementById("options");box.innerHTML="";
+ q.o.forEach((txt,i)=>{let b=document.createElement("button");b.className="option"+(answers[current]===i?" selected":"");b.innerHTML=`<span class="letter">${"ABCD"[i]}</span><span></span>`;b.querySelector("span:last-child").textContent=txt;b.onclick=()=>{answers[current]=i;renderQuestion()};box.appendChild(b)});
+ document.getElementById("prevBtn").disabled=current===0;document.getElementById("nextBtn").textContent=current===activeQuestions.length-1?"Lihat hasil →":"Berikutnya →";
+ document.getElementById("answeredCount").textContent=Object.keys(answers).length+" dari "+activeQuestions.length+" soal terjawab";
+ const grid=document.getElementById("numberGrid");grid.innerHTML="";activeQuestions.forEach((_,i)=>{let b=document.createElement("button");b.className="num"+(answers[i]!==undefined?" done":"")+(i===current?" current":"");b.textContent=i+1;b.onclick=()=>{current=i;renderQuestion()};grid.appendChild(b)});
+}
+function move(d){if(d===1&&current===activeQuestions.length-1){finishQuiz(false);return}current=Math.max(0,Math.min(activeQuestions.length-1,current+d));renderQuestion()}
+function finishQuiz(auto){
+ if(finished)return;
+ let unanswered=activeQuestions.length-Object.keys(answers).length;
+ if(!auto&&unanswered>0&&!confirm(`Masih ada ${unanswered} soal yang belum dijawab. Tetap selesaikan?`))return;
+ finished=true;if(timerId){clearInterval(timerId);timerId=null}
+ let correct=activeQuestions.reduce((n,q,i)=>n+(answers[i]===q.a?1:0),0),score=Math.round(correct/activeQuestions.length*100);
+ let s=loadStats();s.attempts++;s.best=s.best===null?score:Math.max(s.best,score);saveStats(s);
+ document.getElementById("score").textContent=score;document.getElementById("resultTitle").textContent=score>=90?"Mantap, pemahamanmu kuat!":score>=75?"Bagus, tinggal rapikan sedikit.":score>=60?"Lumayan, ayo perkuat beberapa topik.":"Jadikan pembahasan sebagai bahan belajar.";
+ document.getElementById("resultDesc").textContent=`Kamu menjawab ${correct} dari ${activeQuestions.length} soal dengan benar. ${unanswered?unanswered+" soal belum dijawab. ":""}Lihat ulasan di bawah untuk memahami alasannya.`;
+ document.getElementById("reviewFilter").value="all";renderReview();show("results");updateStats();
+}
+function renderReview(){
+ const filter=document.getElementById("reviewFilter").value,list=document.getElementById("reviewList");list.innerHTML="";
+ activeQuestions.forEach((q,i)=>{let ok=answers[i]===q.a;if(filter==="wrong"&&ok)return;if(filter==="correct"&&!ok)return;
+ let d=document.createElement("article");d.className="review";let title=document.createElement("h3");title.textContent=`${i+1}. ${q.q}`;d.appendChild(title);
+ let your=document.createElement("p");your.className=ok?"good":"bad";your.textContent="Jawabanmu: "+(answers[i]===undefined?"Belum dijawab":("ABCD"[answers[i]]+". "+q.o[answers[i]]));d.appendChild(your);
+ let right=document.createElement("p");right.className="good";right.textContent="Jawaban benar: "+"ABCD"[q.a]+". "+q.o[q.a];d.appendChild(right);
+ let explain=document.createElement("p");explain.textContent="Pembahasan: "+q.e;d.appendChild(explain);list.appendChild(d)});
+ if(!list.children.length){list.textContent="Belum ada soal pada filter ini."}
+}
+
+function toggleTheme(){
+ const dark=!document.body.classList.contains("dark");
+ document.body.classList.toggle("dark",dark);
+ localStorage.setItem("kilz-theme",dark?"dark":"light");
+ syncThemeControls();
+}
+function syncThemeControls(){
+ const dark=document.body.classList.contains("dark");
+ const icon=document.getElementById("themeIcon"),label=document.getElementById("themeLabel");
+ if(icon)icon.textContent=dark?"☀":"☾";
+ if(label)label.textContent=dark?"Terang":"Gelap";
+}
+function setAccent(value){
+ const valid=["mono","blue","purple","green","pink"].includes(value)?value:"mono";
+ document.body.dataset.accent=valid;
+ localStorage.setItem("kilz-accent",valid);
+}
+(function initAppearance(){
+ try{
+  const savedTheme=localStorage.getItem("kilz-theme");
+  const savedAccent=localStorage.getItem("kilz-accent")||"mono";
+  if(savedTheme==="dark")document.body.classList.add("dark");
+  document.body.dataset.accent=savedAccent;
+  const picker=document.getElementById("accentPicker");if(picker)picker.value=savedAccent;
+ }catch(e){}
+ syncThemeControls();
+})();
+
+
+function updatePageProgress(){
+ const el=document.getElementById("pageProgress");
+ if(!el)return;
+ const max=document.documentElement.scrollHeight-window.innerHeight;
+ const amount=max>0?(window.scrollY/max)*100:0;
+ el.style.width=amount+"%";
+}
+window.addEventListener("scroll",updatePageProgress,{passive:true});
+window.addEventListener("resize",updatePageProgress);
+updatePageProgress();
+
+function retryQuiz(){startQuiz(lastMode)}
+function enterStudy(){
+ const landing=document.getElementById("kilzLanding");
+ if(landing) landing.style.display="none";
+ show("home");
+ updateStats();
+}
+document.getElementById("kilzEnter")?.addEventListener("click", enterStudy);
+document.getElementById("kilzEnterTop")?.addEventListener("click", enterStudy);
+updateStats();
+</script>
+
+
+
+
+
+
+
+<section id="planner" class="view">
+  <button class="back" onclick="show('home')">← Kembali ke ruang belajar</button>
+  <div class="tool-view-head"><div><div class="eyebrow">STUDY ORGANIZER</div><h1>Agenda belajar</h1><p>PR, UTS, deadline, jadwal pelajaran, dan pengingat dalam satu tempat.</p></div><button class="tool-secondary" type="button" onclick="requestTaskNotifications()">Aktifkan notifikasi</button></div>
+  <div class="panel">
+    <div class="section-head"><h2>Kalender mingguan</h2><div class="tool-row"><button class="tool-secondary" type="button" onclick="shiftWeek(-1)">←</button><span id="plannerWeekLabel" class="subtle"></span><button class="tool-secondary" type="button" onclick="shiftWeek(1)">→</button></div></div>
+    <div id="plannerWeek" class="week-strip"></div>
+    <div class="tool-row" style="margin-bottom:13px"><button class="tool-secondary" type="button" onclick="selectPlannerDate('today')">Hari ini</button><span id="plannerSelectedLabel" class="subtle"></span></div>
+    <div id="plannerDayList" class="tool-list"></div>
+  </div>
+  <div class="tool-grid" style="margin-top:15px">
+    <div class="panel"><div class="section-head"><h2 id="taskFormTitle">Tambah agenda</h2><span class="subtle">Simpan otomatis di perangkat</span></div>
+      <form id="taskForm" class="tool-form">
+        <label>Nama agenda<input id="taskTitle" required maxlength="120" placeholder="Contoh: PR Matematika halaman 42"></label>
+        <div class="tool-row"><label style="flex:1">Jenis<select id="taskType"><option>PR</option><option>UTS</option><option>Deadline</option><option>Jadwal pelajaran</option><option>Pengingat</option></select></label><label style="flex:1">Mata pelajaran<input id="taskSubject" maxlength="60" placeholder="Matematika"></label></div>
+        <div class="tool-row"><label style="flex:1">Tanggal<input id="taskDate" type="date" required></label><label style="flex:1">Jam (opsional)<input id="taskTime" type="time"></label></div>
+        <label>Catatan<textarea id="taskDetails" rows="2" maxlength="500" placeholder="Materi, halaman, atau hal yang perlu disiapkan"></textarea></label>
+        <div class="tool-row"><button class="tool-primary" type="submit">Simpan agenda</button><button class="tool-secondary" id="taskCancelEdit" type="button" hidden>Batal edit</button></div>
+      </form>
+    </div>
+    <div class="panel"><div class="section-head"><h2>Semua agenda</h2><select id="taskFilter" class="tool-input" style="width:auto" aria-label="Filter agenda"><option value="all">Semua</option><option>PR</option><option>UTS</option><option>Deadline</option><option>Jadwal pelajaran</option><option>Pengingat</option><option value="open">Belum selesai</option><option value="done">Selesai</option></select></div><div id="allTasksList" class="tool-list"></div></div>
+  </div>
+</section>
+
+<section id="focusMode" class="view">
+  <button class="back" onclick="show('home')">← Kembali ke ruang belajar</button>
+  <div class="tool-view-head"><div><div class="eyebrow">FOCUS / RESET / REPEAT</div><h1>Focus Mode</h1><p>Fokus 25 menit, istirahat 5 menit, dan pantau waktu belajarmu.</p></div></div>
+  <div class="tool-grid">
+    <div class="focus-face">
+      <div class="focus-modes"><button type="button" id="focusWorkMode" class="active" onclick="setFocusMode('work')">Fokus · 25 menit</button><button type="button" id="focusBreakMode" onclick="setFocusMode('break')">Istirahat · 5 menit</button></div>
+      <div id="focusLabel" class="subtle" style="text-align:center;margin-top:17px">WAKTU FOKUS</div>
+      <div id="focusClock" class="focus-clock">25:00</div>
+      <div class="focus-track"><span id="focusProgress"></span></div>
+      <div class="tool-row" style="justify-content:center;margin-top:20px"><button class="tool-primary" id="focusStart" type="button" onclick="toggleFocusTimer()">Mulai fokus</button><button class="tool-secondary" type="button" onclick="resetFocusTimer()">Reset</button></div>
+      <p id="focusStatus" class="subtle" style="text-align:center;margin:13px 0 0">Matikan gangguan, lalu mulai satu sesi.</p>
+    </div>
+    <div class="panel"><div class="section-head"><h2>Statistik sesi</h2><span class="subtle">Tersimpan lokal</span></div>
+      <div class="stats" style="grid-template-columns:repeat(2,1fr);margin:0 0 14px"><div class="stat"><div class="stat-label">Sesi fokus</div><div class="stat-num" id="focusSessions">0</div></div><div class="stat"><div class="stat-label">Total belajar</div><div class="stat-num" id="focusMinutes">0 mnt</div></div></div>
+      <div class="section-head"><h2>Riwayat terbaru</h2></div><div id="focusHistory" class="tool-list"></div>
+    </div>
+  </div>
+</section>
+
+<section id="digitalNotes" class="view">
+  <button class="back" onclick="show('home')">← Kembali ke ruang belajar</button>
+  <div class="tool-view-head"><div><div class="eyebrow">PERSONAL KNOWLEDGE</div><h1>Catatan digital</h1><p>Catatan per mata pelajaran, checklist materi, favorit, dan ekspor ke PDF.</p></div><button type="button" class="tool-secondary no-print" onclick="exportNotesPDF()">Ekspor / cetak PDF ↗</button></div>
+  <div class="tool-grid">
+    <div class="panel no-print"><div class="section-head"><h2 id="noteFormTitle">Catatan baru</h2><span class="subtle">Simpan di perangkat</span></div>
+      <form id="noteForm" class="tool-form">
+        <label>Judul catatan<input id="noteTitle" required maxlength="120" placeholder="Contoh: Ringkasan teks prosedur"></label>
+        <label>Mata pelajaran / folder<select id="noteSubject"><option>Bahasa Indonesia</option><option>PAI</option><option>Matematika</option><option>IPA</option><option>IPS</option><option>Bahasa Inggris</option><option>Informatika</option><option>Seni Budaya</option><option>PJOK</option><option>Lainnya</option></select></label>
+        <label>Isi catatan<textarea id="noteBody" rows="5" maxlength="10000" placeholder="Tulis rangkuman atau materi di sini..."></textarea></label>
+        <label>Checklist materi <span class="subtle">Satu materi per baris</span><textarea id="noteChecklist" rows="3" maxlength="2000" placeholder="Pengertian&#10;Ciri-ciri&#10;Contoh"></textarea></label>
+        <div class="tool-row"><button class="tool-primary" type="submit">Simpan catatan</button><button class="tool-secondary" id="noteCancelEdit" type="button" hidden>Batal edit</button></div>
+      </form>
+    </div>
+    <div class="panel"><div class="section-head"><h2>Koleksi catatan</h2><select id="noteFilter" class="tool-input" style="width:auto" aria-label="Filter catatan"><option value="all">Semua folder</option><option>Bahasa Indonesia</option><option>PAI</option><option>Matematika</option><option>IPA</option><option>IPS</option><option>Bahasa Inggris</option><option>Informatika</option><option>Seni Budaya</option><option>PJOK</option><option>Lainnya</option><option value="favorites">Favorit ★</option></select></div><div id="notesList" class="tool-list"></div></div>
+  </div>
+  <div id="notesPrintArea" class="panel" style="margin-top:15px"><div class="section-head"><h2>Pratinjau catatan</h2><span class="subtle">Pilih catatan untuk melihat isinya</span></div><div id="notePreview" class="tool-empty">Belum ada catatan yang dipilih.</div></div>
+</section>
+
+<section id="pocketMoney" class="view">
+  <button class="back" onclick="show('home')">← Kembali ke ruang belajar</button>
+  <div class="tool-view-head"><div><div class="eyebrow">MONEY HABITS</div><h1>Catatan uang saku</h1><p>Kelola pemasukan, pengeluaran, tabungan, dan target menabungmu.</p></div></div>
+  <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat"><div class="stat-label">Saldo sekarang</div><div class="money-total" id="moneyBalance">Rp0</div></div>
+    <div class="stat"><div class="stat-label">Total pemasukan</div><div class="money-total" id="moneyIncome">Rp0</div></div>
+    <div class="stat"><div class="stat-label">Total pengeluaran</div><div class="money-total" id="moneyExpense">Rp0</div></div>
+  </div>
+  <div class="tool-grid">
+    <div class="panel"><div class="section-head"><h2>Catat transaksi</h2></div>
+      <form id="moneyForm" class="tool-form">
+        <label>Jenis transaksi<select id="moneyType"><option value="income">Pemasukan</option><option value="expense">Pengeluaran</option><option value="saving">Setor tabungan</option><option value="withdraw">Ambil tabungan</option></select></label>
+        <label>Jumlah (rupiah)<input id="moneyAmount" type="number" min="1" step="1" required placeholder="Contoh: 10000"></label>
+        <label>Keterangan<input id="moneyDesc" maxlength="120" required placeholder="Uang saku / jajan / tabungan"></label>
+        <label>Tanggal<input id="moneyDate" type="date" required></label>
+        <button class="tool-primary" type="submit">Simpan transaksi</button>
+      </form>
+      <div style="border-top:1px solid var(--line);margin-top:20px;padding-top:16px"><div class="section-head"><h2>Target menabung</h2></div><form id="goalForm" class="tool-form"><label>Nama target<input id="goalName" maxlength="100" placeholder="Contoh: Buku baru"></label><label>Target (rupiah)<input id="goalAmount" type="number" min="1" step="1" required placeholder="150000"></label><button class="tool-primary" type="submit">Simpan target</button></form><div id="goalDisplay" style="margin-top:12px"></div></div>
+    </div>
+    <div class="panel"><div class="section-head"><h2>Riwayat transaksi</h2><button class="tool-secondary" type="button" onclick="exportMoneyCSV()">Ekspor CSV</button></div><div id="moneyHistory" class="tool-list"></div></div>
+  </div>
+</section>
+
+
+<script>
+/* KILZ DEV modules: local-first persistence, no fake backend calls. */
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const read=(key,fallback)=>{try{const v=JSON.parse(localStorage.getItem('kz_'+key));return v??fallback}catch(e){return fallback}};
+const write=(key,val)=>{try{localStorage.setItem('kz_'+key,JSON.stringify(val));return true}catch(e){alert('Penyimpanan browser penuh atau tidak tersedia. Data belum tersimpan.');return false}};
+const uid=()=>`${Date.now().toString(36)}${Math.random().toString(36).slice(2,8)}`;
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rupiah=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0);
+window.openTool=id=>{document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='planner')renderPlanner();if(id==='digitalNotes')renderNotes();if(id==='pocketMoney')renderMoney()};
+const nav=document.querySelector('.kilz-tools-nav');
+if(nav)nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tool]').forEach(x=>x.classList.remove('active'));b.classList.add('active')}));
+const savedShow=window.show;
+window.show=function(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));if($(id))$(id).classList.add('active');document.querySelectorAll('[data-tool]').forEach(b=>b.classList.remove('active'));window.scrollTo({top:0,behavior:'smooth'})};
+
+/* Agenda + weekly calendar */
+let tasks=read('tasks',[]), selectedDate=todayISO(),weekOffset=0,editingTask=null;
+const dateObj=iso=>new Date(`${iso}T12:00:00`);
+const fmtDate=iso=>dateObj(iso).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+const mondayOf=d=>{const x=new Date(d);x.setHours(12,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x};
+const toISO=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+window.shiftWeek=delta=>{weekOffset+=delta;renderPlanner()};
+window.selectPlannerDate=value=>{selectedDate=value==='today'?todayISO():value;const now=mondayOf(dateObj(todayISO()));const selected=mondayOf(dateObj(selectedDate));weekOffset=Math.round((selected-now)/604800000);renderPlanner()};
+function renderPlanner(){
+ const base=mondayOf(dateObj(todayISO()));base.setDate(base.getDate()+weekOffset*7);
+ $('plannerWeekLabel').textContent=`${base.toLocaleDateString('id-ID',{day:'numeric',month:'short'})} – ${new Date(base.getTime()+6*86400000).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})}`;
+ $('plannerWeek').innerHTML=Array.from({length:7},(_,i)=>{const d=new Date(base);d.setDate(d.getDate()+i);const iso=toISO(d);return `<button class="week-day ${selectedDate===iso?'active':''}" type="button" onclick="selectPlannerDate('${iso}')"><span>${d.toLocaleDateString('id-ID',{weekday:'short'})}</span><strong>${d.getDate()}</strong>${tasks.some(t=>t.date===iso&&!t.done)?'<i class="week-dot"></i>':''}</button>`}).join('');
+ $('plannerSelectedLabel').textContent=fmtDate(selectedDate);
+ const day=tasks.filter(t=>t.date===selectedDate).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+ $('plannerDayList').innerHTML=day.length?day.map(taskHTML).join(''):'<div class="tool-empty">Belum ada agenda di tanggal ini.</div>';
+ renderAllTasks();
+}
+function taskHTML(t){return `<article class="tool-entry"><div class="tool-entry-top"><div><span class="tool-badge">${esc(t.type)}</span><h3 style="margin-top:7px">${esc(t.title)}</h3><small>${esc(t.subject||'Tanpa mata pelajaran')} · ${fmtDate(t.date)}${t.time?' · '+esc(t.time):''}</small>${t.details?`<p>${esc(t.details)}</p>`:''}</div><input type="checkbox" aria-label="Tandai selesai" ${t.done?'checked':''} onchange="toggleTask('${t.id}',this.checked)"></div><div class="tool-entry-actions"><button type="button" onclick="editTask('${t.id}')">Edit</button><button type="button" onclick="deleteTask('${t.id}')">Hapus</button>${t.done?'<span class="tool-badge">Selesai</span>':''}</div></article>`}
+function renderAllTasks(){const f=$('taskFilter').value;let list=[...tasks].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));if(f==='open')list=list.filter(t=>!t.done);else if(f==='done')list=list.filter(t=>t.done);else if(f!=='all')list=list.filter(t=>t.type===f);$('allTasksList').innerHTML=list.length?list.map(taskHTML).join(''):'<div class="tool-empty">Agenda belum ada. Tambahkan lewat formulir.</div>'}
+$('taskFilter').addEventListener('change',renderAllTasks);
+$('taskDate').value=todayISO();
+$('taskForm').addEventListener('submit',e=>{e.preventDefault();const item={id:editingTask||uid(),title:$('taskTitle').value.trim(),type:$('taskType').value,subject:$('taskSubject').value.trim(),date:$('taskDate').value,time:$('taskTime').value,details:$('taskDetails').value.trim(),done:editingTask?(tasks.find(t=>t.id===editingTask)?.done||false):false,createdAt:new Date().toISOString()};if(!item.title||!item.date)return;if(editingTask)tasks=tasks.map(t=>t.id===editingTask?item:t);else tasks.push(item);if(write('tasks',tasks)){selectedDate=item.date;resetTaskForm();renderPlanner()}});
+function resetTaskForm(){editingTask=null;$('taskForm').reset();$('taskDate').value=todayISO();$('taskFormTitle').textContent='Tambah agenda';$('taskCancelEdit').hidden=true}
+$('taskCancelEdit').addEventListener('click',resetTaskForm);
+window.editTask=id=>{const t=tasks.find(x=>x.id===id);if(!t)return;editingTask=id;$('taskTitle').value=t.title;$('taskType').value=t.type;$('taskSubject').value=t.subject;$('taskDate').value=t.date;$('taskTime').value=t.time;$('taskDetails').value=t.details;$('taskFormTitle').textContent='Edit agenda';$('taskCancelEdit').hidden=false;document.querySelector('#taskForm').scrollIntoView({behavior:'smooth',block:'center'})};
+window.deleteTask=id=>{if(!confirm('Hapus agenda ini?'))return;tasks=tasks.filter(t=>t.id!==id);write('tasks',tasks);renderPlanner()};
+window.toggleTask=(id,done)=>{tasks=tasks.map(t=>t.id===id?{...t,done}:t);write('tasks',tasks);renderPlanner()};
+window.requestTaskNotifications=async()=>{if(!('Notification'in window)){alert('Browser ini tidak mendukung notifikasi. Agenda tetap tersimpan di website.');return}try{const p=await Notification.requestPermission();alert(p==='granted'?'Notifikasi diizinkan. Pengingat dapat muncul saat website terbuka dan waktunya tiba.':'Izin notifikasi belum diberikan.')}catch(e){alert('Notifikasi tidak tersedia di browser ini.')}};
+function checkReminders(){if(!('Notification'in window)||Notification.permission!=='granted')return;const now=new Date();tasks.filter(t=>!t.done&&t.date===todayISO()&&t.time).forEach(t=>{const due=new Date(`${t.date}T${t.time}`);if(Math.abs(now-due)<30000&&!read('notified',[]).includes(t.id)){new Notification('Pengingat KILZ DEV',{body:`${t.title}${t.subject?' · '+t.subject:''}`});const n=read('notified',[]);n.push(t.id);write('notified',n)}})}
+setInterval(checkReminders,15000);renderPlanner();
+
+/* Focus timer + completed-session history */
+let focusMode='work',focusRemaining=1500,focusRunning=false,focusInterval=null,focusLast=Date.now(),focusElapsed=0;
+let focusHistory=read('focusHistory',[]);
+const focusDuration=()=>focusMode==='work'?1500:300;
+function drawFocus(){const m=Math.floor(focusRemaining/60),s=focusRemaining%60;$('focusClock').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;$('focusLabel').textContent=focusMode==='work'?'WAKTU FOKUS':'WAKTU ISTIRAHAT';$('focusProgress').style.width=`${Math.max(0,Math.min(100,(1-focusRemaining/focusDuration())*100))}%`;$('focusStart').textContent=focusRunning?'Jeda':'Mulai '+(focusMode==='work'?'fokus':'istirahat');$('focusWorkMode').classList.toggle('active',focusMode==='work');$('focusBreakMode').classList.toggle('active',focusMode==='break');}
+function renderFocusStats(){$('focusSessions').textContent=focusHistory.length;$('focusMinutes').textContent=focusHistory.reduce((a,h)=>a+h.minutes,0)+' mnt';$('focusHistory').innerHTML=focusHistory.length?focusHistory.slice(0,8).map(h=>`<article class="tool-entry"><div class="tool-entry-top"><div><h3>${h.mode==='work'?'Sesi fokus':'Istirahat selesai'}</h3><small>${new Date(h.at).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}</small></div><span class="tool-badge">${h.minutes} menit</span></div></article>`).join(''):'<div class="tool-empty">Belum ada sesi selesai.</div>'}
+window.setFocusMode=mode=>{if(focusRunning)stopFocus(false);focusMode=mode;focusRemaining=focusDuration();focusElapsed=0;$('focusStatus').textContent=mode==='work'?'Siap untuk satu sesi belajar.':'Waktunya istirahat sebentar.';drawFocus()};
+window.toggleFocusTimer=()=>{if(focusRunning){stopFocus(false);$('focusStatus').textContent='Timer dijeda. Lanjutkan kapan saja.';return}focusRunning=true;focusLast=Date.now();focusInterval=setInterval(()=>{const now=Date.now();const elapsed=Math.max(1,Math.round((now-focusLast)/1000));focusLast=now;focusRemaining=Math.max(0,focusRemaining-elapsed);focusElapsed+=elapsed;drawFocus();if(focusRemaining<=0)finishFocus()},250);$('focusStatus').textContent='Sedang berjalan — fokus pada satu hal.';drawFocus()};
+function stopFocus(resetElapsed){focusRunning=false;if(focusInterval)clearInterval(focusInterval);focusInterval=null;if(resetElapsed)focusElapsed=0;drawFocus()}
+function finishFocus(){const mode=focusMode,minutes=Math.round(focusElapsed/60)|| (mode==='work'?25:5);stopFocus(false);focusHistory.unshift({id:uid(),mode,minutes,at:new Date().toISOString()});write('focusHistory',focusHistory);$('focusStatus').textContent=mode==='work'?'Sesi fokus selesai. Ambil jeda 5 menit.':'Istirahat selesai. Siap fokus lagi?';renderFocusStats();if('Notification'in window&&Notification.permission==='granted')new Notification('KILZ DEV',{body:mode==='work'?'Sesi fokus selesai. Waktunya istirahat.':'Istirahat selesai. Siap mulai lagi?'})}
+window.resetFocusTimer=()=>{stopFocus(true);focusRemaining=focusDuration();$('focusStatus').textContent='Timer direset.';drawFocus()};
+drawFocus();renderFocusStats();
+
+/* Notes, subjects/folders, checklists and favorites */
+let notes=read('notes',[]),editingNote=null,selectedNote=null;
+function renderNotes(){const f=$('noteFilter').value;let arr=[...notes].sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));if(f==='favorites')arr=arr.filter(n=>n.favorite);else if(f!=='all')arr=arr.filter(n=>n.subject===f);$('notesList').innerHTML=arr.length?arr.map(n=>`<article class="tool-entry"><div class="tool-entry-top"><div><span class="tool-badge">${esc(n.subject)}</span><h3 style="margin-top:7px">${esc(n.title)}</h3><small>Diperbarui ${new Date(n.updatedAt).toLocaleDateString('id-ID')}</small></div><button class="tool-secondary" type="button" onclick="toggleFavorite('${n.id}')" aria-label="Favorit">${n.favorite?'★':'☆'}</button></div><p>${esc(n.body.slice(0,140))}${n.body.length>140?'…':''}</p><div class="tool-entry-actions"><button type="button" onclick="previewNote('${n.id}')">Buka</button><button type="button" onclick="editNote('${n.id}')">Edit</button><button type="button" onclick="deleteNote('${n.id}')">Hapus</button></div></article>`).join(''):'<div class="tool-empty">Belum ada catatan di folder ini.</div>';if(selectedNote&&!notes.some(n=>n.id===selectedNote))selectedNote=null;if(selectedNote)previewNote(selectedNote)}
+$('noteFilter').addEventListener('change',renderNotes);
+$('noteForm').addEventListener('submit',e=>{e.preventDefault();const old=notes.find(n=>n.id===editingNote);const item={id:editingNote||uid(),title:$('noteTitle').value.trim(),subject:$('noteSubject').value,body:$('noteBody').value.trim(),checklist:$('noteChecklist').value.split('\n').map(x=>x.trim()).filter(Boolean),checked:old?.checked||[],favorite:old?.favorite||false,updatedAt:new Date().toISOString()};if(!item.title)return;if(editingNote)notes=notes.map(n=>n.id===editingNote?item:n);else notes.unshift(item);if(write('notes',notes)){selectedNote=item.id;resetNoteForm();renderNotes()}});
+function resetNoteForm(){$('noteForm').reset();editingNote=null;$('noteFormTitle').textContent='Catatan baru';$('noteCancelEdit').hidden=true}
+$('noteCancelEdit').addEventListener('click',resetNoteForm);
+window.editNote=id=>{const n=notes.find(x=>x.id===id);if(!n)return;editingNote=id;$('noteTitle').value=n.title;$('noteSubject').value=n.subject;$('noteBody').value=n.body;$('noteChecklist').value=n.checklist.join('\n');$('noteFormTitle').textContent='Edit catatan';$('noteCancelEdit').hidden=false;document.querySelector('#noteForm').scrollIntoView({behavior:'smooth',block:'center'})};
+window.deleteNote=id=>{if(!confirm('Hapus catatan ini?'))return;notes=notes.filter(n=>n.id!==id);write('notes',notes);if(selectedNote===id)selectedNote=null;renderNotes()};
+window.toggleFavorite=id=>{notes=notes.map(n=>n.id===id?{...n,favorite:!n.favorite}:n);write('notes',notes);renderNotes()};
+window.previewNote=id=>{const n=notes.find(x=>x.id===id);if(!n)return;selectedNote=id;$('notePreview').className='';$('notePreview').innerHTML=`<article><div class="tool-entry-top"><div><span class="tool-badge">${esc(n.subject)}</span><h2 style="font-size:21px;margin:10px 0">${esc(n.title)}</h2></div><span>${n.favorite?'★ Favorit':''}</span></div><div class="note-content">${esc(n.body)||'<i>Belum ada isi catatan.</i>'}</div>${n.checklist.length?`<h3 style="margin-top:18px">Checklist materi</h3>${n.checklist.map((x,i)=>`<label class="checklist-line"><input type="checkbox" ${n.checked.includes(i)?'checked':''} onchange="toggleChecklist('${n.id}',${i},this.checked)"><span style="${n.checked.includes(i)?'text-decoration:line-through;opacity:.6':''}">${esc(x)}</span></label>`).join('')}`:''}</article>`;renderNotesListOnly()};
+function renderNotesListOnly(){const f=$('noteFilter').value;let arr=[...notes].sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));if(f==='favorites')arr=arr.filter(n=>n.favorite);else if(f!=='all')arr=arr.filter(n=>n.subject===f);$('notesList').innerHTML=arr.length?arr.map(n=>`<article class="tool-entry"><div class="tool-entry-top"><div><span class="tool-badge">${esc(n.subject)}</span><h3 style="margin-top:7px">${esc(n.title)}</h3><small>Diperbarui ${new Date(n.updatedAt).toLocaleDateString('id-ID')}</small></div><button class="tool-secondary" type="button" onclick="toggleFavorite('${n.id}')">${n.favorite?'★':'☆'}</button></div><p>${esc(n.body.slice(0,140))}${n.body.length>140?'…':''}</p><div class="tool-entry-actions"><button type="button" onclick="previewNote('${n.id}')">Buka</button><button type="button" onclick="editNote('${n.id}')">Edit</button><button type="button" onclick="deleteNote('${n.id}')">Hapus</button></div></article>`).join(''):'<div class="tool-empty">Belum ada catatan di folder ini.</div>'}
+window.toggleChecklist=(id,i,checked)=>{notes=notes.map(n=>n.id===id?{...n,checked:checked?[...new Set([...n.checked,i])]:n.checked.filter(x=>x!==i)}:n);write('notes',notes);previewNote(id)};
+window.exportNotesPDF=()=>{if(!notes.length){alert('Belum ada catatan untuk diekspor.');return}const area=$('notePreview');if(!selectedNote){alert('Pilih catatan yang ingin diekspor terlebih dahulu.');return}window.print()};
+renderNotes();
+
+/* Pocket money: transactions and savings target */
+let transactions=read('transactions',[]),goal=read('moneyGoal',null);
+$('moneyDate').value=todayISO();
+$('moneyForm').addEventListener('submit',e=>{e.preventDefault();const amount=Number($('moneyAmount').value);if(!Number.isFinite(amount)||amount<=0||!Number.isInteger(amount)){alert('Masukkan jumlah rupiah berupa bilangan bulat di atas nol.');return}const type=$('moneyType').value;const item={id:uid(),type,amount,desc:$('moneyDesc').value.trim(),date:$('moneyDate').value};if(!item.desc||!item.date)return;transactions.unshift(item);if(write('transactions',transactions)){ $('moneyForm').reset();$('moneyDate').value=todayISO();renderMoney()}});
+$('goalForm').addEventListener('submit',e=>{e.preventDefault();const amount=Number($('goalAmount').value);if(!Number.isInteger(amount)||amount<=0){alert('Target harus berupa bilangan rupiah di atas nol.');return}goal={name:$('goalName').value.trim()||'Target menabung',amount};if(write('moneyGoal',goal))renderMoney()});
+function renderMoney(){const income=transactions.filter(t=>t.type==='income').reduce((a,t)=>a+t.amount,0),expense=transactions.filter(t=>t.type==='expense').reduce((a,t)=>a+t.amount,0),saving=transactions.filter(t=>t.type==='saving').reduce((a,t)=>a+t.amount,0),withdraw=transactions.filter(t=>t.type==='withdraw').reduce((a,t)=>a+t.amount,0),balance=income-expense-saving+withdraw; $('moneyBalance').textContent=rupiah(balance);$('moneyIncome').textContent=rupiah(income);$('moneyExpense').textContent=rupiah(expense);$('moneyHistory').innerHTML=transactions.length?transactions.slice(0,60).map(t=>{const label={income:'Pemasukan',expense:'Pengeluaran',saving:'Setor tabungan',withdraw:'Ambil tabungan'}[t.type];const sign=['income','withdraw'].includes(t.type)?'+':'−';return `<article class="tool-entry"><div class="tool-entry-top"><div><h3>${esc(t.desc)}</h3><small>${esc(label)} · ${fmtDate(t.date)}</small></div><b style="color:${sign==='+'?'var(--green)':'var(--red)'}">${sign}${rupiah(t.amount)}</b></div><div class="tool-entry-actions"><button type="button" onclick="deleteTransaction('${t.id}')">Hapus</button></div></article>`}).join(''):'<div class="tool-empty">Belum ada transaksi.</div>';if(goal){const current=Math.max(0,saving-withdraw),pct=Math.min(100,Math.round(current/goal.amount*100));$('goalName').value=goal.name;$('goalAmount').value=goal.amount;$('goalDisplay').innerHTML=`<div class="tool-entry"><div class="tool-entry-top"><div><h3>${esc(goal.name)}</h3><small>${rupiah(current)} dari ${rupiah(goal.amount)}</small></div><b>${pct}%</b></div><div class="progress"><i style="width:${pct}%;background:var(--green)"></i></div><div class="tool-entry-actions"><button type="button" onclick="clearGoal()">Hapus target</button></div></div>`}else $('goalDisplay').innerHTML='<p class="subtle">Belum ada target tabungan.</p>'}
+window.deleteTransaction=id=>{if(!confirm('Hapus transaksi ini?'))return;transactions=transactions.filter(t=>t.id!==id);write('transactions',transactions);renderMoney()};
+window.clearGoal=()=>{if(confirm('Hapus target tabungan?')){goal=null;write('moneyGoal',null);$('goalForm').reset();renderMoney()}};
+window.exportMoneyCSV=()=>{const rows=[['Tanggal','Jenis','Keterangan','Jumlah (Rp)'],...transactions.map(t=>[t.date,({income:'Pemasukan',expense:'Pengeluaran',saving:'Setor tabungan',withdraw:'Ambil tabungan'})[t.type],t.desc,t.amount])];const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}));a.download='kilz-dev-uang-saku.csv';a.click();URL.revokeObjectURL(a.href)};
+renderMoney();
+})();
+</script>
+
+</body>
+</html>
